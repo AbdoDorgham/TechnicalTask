@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
     <Folder Include="DTOs\" />
     <Folder Include="Interfaces\IRepositories\" />
     <Folder Include="Interfaces\IServices\" />
     <Folder Include="Interfaces\IUnitOfWorks\" />
+    <Folder Include="Utils\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

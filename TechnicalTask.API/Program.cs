@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using TechnicalTask.DataAccess.Data;
+
 namespace TechnicalTask.API
 {
     public class Program
@@ -12,6 +15,10 @@ namespace TechnicalTask.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("TechTaskDB")));
+
+
+
 
             var app = builder.Build();
 
