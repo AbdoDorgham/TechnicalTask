@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TechnicalTask.BusinessLogic.Entities.General;
+using TechnicalTask.BusinessLogic.DTOs.AccountDtos;
 
-namespace TechnicalTask.BusinessLogic.Entities.Buiseness
+namespace TechnicalTask.BusinessLogic.DTOs.CustomerDtos
 {
-    public class Customer : BaseEntity
+    public class RegisterCustomerDto : RegisterUserDto
     {
         [MaxLength(20)]
         public string FirstName { get; set; }
@@ -20,11 +19,7 @@ namespace TechnicalTask.BusinessLogic.Entities.Buiseness
         [MaxLength(50)]
         public string Address { get; set; }
 
+        [Range(0, 2)]
         public int Gender { get; set; }
-        public DateTime BannedUntil { get; set; }
-        public int BannedCount { get; set; }
-        [ForeignKey("Id")]
-        public virtual ApplicationUser User { get; set; }
-
     }
 }
