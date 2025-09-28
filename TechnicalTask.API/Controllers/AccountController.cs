@@ -21,7 +21,6 @@ namespace TechnicalTask.API.Controllers
         public async Task<IActionResult> Login([FromBody] LoginUserDto loginUser)
         {
             var result = await accountService.Login(loginUser);
-
             return result.IsFail ? Unauthorized(result) : Ok(result);
 
         }
@@ -30,9 +29,8 @@ namespace TechnicalTask.API.Controllers
         public async Task<IActionResult> RegisterCustomer([FromBody] RegisterCustomerDto registerCustomerDto)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+                return BadRequest();
+            
             var result = await accountService.RegisterCustomer(registerCustomerDto);
             return result.IsFail ? BadRequest(result) : Ok(result);
 

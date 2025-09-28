@@ -25,6 +25,7 @@ namespace TechnicalTask.BusinessLogic.Entities.Buiseness
         public int BannedCount { get; set; }
         [ForeignKey("Id")]
         public virtual ApplicationUser User { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
     }
 }
