@@ -9,5 +9,7 @@ namespace TechnicalTask.BusinessLogic.Interfaces.IRepositories
 {
     public interface IOrderRepo : IBaseRepository<Order>
     {
+        public IEnumerable<Order> GetAllDeleted();
+
     }
 }

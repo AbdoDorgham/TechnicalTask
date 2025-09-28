@@ -12,10 +12,10 @@ namespace TechnicalTask.BusinessLogic.Interfaces.IServices
 {
     public interface IAccountService
     {
-        public Task<Result> Login(LoginUserDto loginUserDTO);
+        public Task<Result<string>> Login(LoginUserDto loginUserDTO);
 
         public Task<ApplicationUser> RegisterUser(RegisterUserDto registerUserDTO);
-        public Task<Result> RegisterCustomer(RegisterCustomerDto registerCustomerDTO);
+        public Task<Result<string>> RegisterCustomer(RegisterCustomerDto registerCustomerDTO);
 
     }
 }

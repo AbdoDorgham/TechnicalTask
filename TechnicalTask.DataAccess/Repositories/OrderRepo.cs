@@ -12,5 +12,8 @@ namespace TechnicalTask.DataAccess.Repositories
     public class OrderRepo : BaseRepository<Order> , IOrderRepo
     {
         public OrderRepo(ApplicationDBContext context) : base(context) { }
+
+        public IEnumerable<Order> GetAllDeleted() => _dbSet.Where(o => o.IsDeleted);
+
     }
 }

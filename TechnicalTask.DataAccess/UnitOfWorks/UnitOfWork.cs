@@ -13,13 +13,18 @@ namespace TechnicalTask.DataAccess.UnitOfWorks
     public class UnitOfWork :IUnitOfWork
     {
         private readonly ApplicationDBContext context;
+        private readonly ICustomerRepo customerRepo;
+        private readonly IOrderRepo orderRepo;
+
 
         public UnitOfWork(ApplicationDBContext context)
         {
-                this.context = context;
+             this.context = context;
         }
-        private readonly ICustomerRepo customerRepo;
+       
         public ICustomerRepo CustomerRepo => customerRepo ?? new CustomerRepo(context);
+        public IOrderRepo OrderRepo => orderRepo ?? new OrderRepo(context);
+
 
 
         public async Task SaveChangesAsync()

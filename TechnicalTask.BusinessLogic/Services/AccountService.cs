@@ -33,9 +33,9 @@ namespace TechnicalTask.BusinessLogic.Services
 
 
 
-        public async Task<Result> Login(LoginUserDto loginUserDTO)
+        public async Task<Result<string>> Login(LoginUserDto loginUserDTO)
         {
-            var result = new Result(isFail:false);
+            var result = new Result<string>(isFail:false);
             try
             {
                 ApplicationUser user = await userManager.FindByEmailAsync(loginUserDTO.UserNameOrEmail);
@@ -45,8 +45,8 @@ namespace TechnicalTask.BusinessLogic.Services
                 bool isValidUser = await userManager.CheckPasswordAsync(user, loginUserDTO.Password);
                 if (!isValidUser)
                     return result.Fail("Wrong Password.");
-                result.Message = MyTokenHandler.GenerateToken(user);
-                return result;
+               
+                return result.Success("Success Login", MyTokenHandler.GenerateToken(user));
             }
             catch (Exception ex )
             {
@@ -70,9 +70,9 @@ namespace TechnicalTask.BusinessLogic.Services
         }
 
 
-        public async Task<Result> RegisterCustomer(RegisterCustomerDto registerCustomerDTO)
+        public async Task<Result<string>> RegisterCustomer(RegisterCustomerDto registerCustomerDTO)
         {
-            var result = new Result(isFail: false);
+            var result = new Result<string>(isFail: false);
 
             try
             {

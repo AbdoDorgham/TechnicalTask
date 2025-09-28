@@ -12,5 +12,7 @@ namespace TechnicalTask.BusinessLogic.Interfaces.IUnitOfWorks
         Task SaveChangesAsync();
 
         public ICustomerRepo CustomerRepo { get; }
+        public IOrderRepo OrderRepo { get; }
+
     }
 }

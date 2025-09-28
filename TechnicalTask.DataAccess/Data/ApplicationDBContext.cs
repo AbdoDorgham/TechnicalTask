@@ -16,6 +16,9 @@ namespace TechnicalTask.DataAccess.Data
 
 
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+
+
 
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
