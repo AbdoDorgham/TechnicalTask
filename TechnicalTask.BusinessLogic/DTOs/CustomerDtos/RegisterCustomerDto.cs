@@ -10,7 +10,7 @@ namespace TechnicalTask.BusinessLogic.DTOs.CustomerDtos
 {
     public class RegisterCustomerDto : RegisterUserDto
     {
-        [MaxLength(20)]
+        [Required,MaxLength(20)]
         public string FirstName { get; set; }
 
         [MaxLength(20)]

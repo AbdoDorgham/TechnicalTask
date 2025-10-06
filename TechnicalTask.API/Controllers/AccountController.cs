@@ -27,10 +27,7 @@ namespace TechnicalTask.API.Controllers
 
         [HttpPost("RegisterCustomer")]
         public async Task<IActionResult> RegisterCustomer([FromBody] RegisterCustomerDto registerCustomerDto)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest();
-            
+        {  
             var result = await accountService.RegisterCustomer(registerCustomerDto);
             return result.IsFail ? BadRequest(result) : Ok(result);
 

@@ -12,7 +12,7 @@ namespace TechnicalTask.BusinessLogic.Interfaces.IServices
     public interface ICustomerService
     {
         public Result<DisplayCustomerDto> GetCustomerById(int id);
-        public Result<UpdateCustomerDto> Update(UpdateCustomerDto customerDto);
+        public Task<Result<UpdateCustomerDto>> Update(UpdateCustomerDto customerDto);
 
     }
 }

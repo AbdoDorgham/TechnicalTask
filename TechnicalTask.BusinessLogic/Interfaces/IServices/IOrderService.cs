@@ -14,7 +14,7 @@ namespace TechnicalTask.BusinessLogic.Interfaces.IServices
     {
         public Result<IEnumerable<DisplayOrderDto>> GetAll();
         public Result<DisplayOrderDto> GetById(int id);
-        public Result<CreateOrderDto> Add(CreateOrderDto orderDto);
+        public Task<Result<CreateOrderDto>> Add(CreateOrderDto orderDto);
         public Result<IEnumerable<DisplayOrderDto>> GetOrdersByCustomerId(int customerId);
         public Task<Result<string>> Delete(int id, int customerId);
 

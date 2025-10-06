@@ -40,17 +40,22 @@ namespace TechnicalTask.API
               ).AddRoles<IdentityRole<int>>().
               AddEntityFrameworkStores<ApplicationDBContext>().AddDefaultTokenProviders();
 
-            builder.Services.AddAuthentication(opt => opt.DefaultAuthenticateScheme = "defSheme")
-                .AddJwtBearer("defSheme", op => {
-                    op.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateIssuerSigningKey = true,
-                        ValidateLifetime = true,
-                        IssuerSigningKey = MyTokenHandler.GetSecurityKey()
-                    };
+            builder.Services.AddAuthentication(
+                op
+                => {
+                    op.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    op.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                }
+                ).AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true ,
+                    IssuerSigningKey = MyTokenHandler.GetSecurityKey()
                 });
+
+
 
             builder.Services.AddAutoMapper(cfg => { }, typeof(MappingConfig));
 

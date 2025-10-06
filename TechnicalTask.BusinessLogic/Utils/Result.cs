@@ -14,7 +14,7 @@ namespace TechnicalTask.BusinessLogic.Utils
         public string Message { get; set; }
         public T ReturnedObj { get; set; }
 
-        public Result<T> Fail(string message)
+        public Result<T> Fail(string message = "", T returnedObj = null)
         {
             IsFail = true;
             Message = message;

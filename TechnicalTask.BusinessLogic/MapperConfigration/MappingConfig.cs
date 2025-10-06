@@ -26,7 +26,7 @@ namespace TechnicalTask.BusinessLogic.MapperConfigration
             CreateMap<Customer, DisplayCustomerDto>().AfterMap((src, dist) =>
             {
                 dist.Email = src.User?.Email;
-              
+                dist.UserName = src.User?.UserName;
 
             }).ReverseMap();
             CreateMap<Customer,UpdateCustomerDto>().ReverseMap();

@@ -57,16 +57,34 @@ namespace TechnicalTask.BusinessLogic.Services
 
         }
 
-        public async Task<ApplicationUser> RegisterUser(RegisterUserDto registerUserDTO)
+        public async Task<Result<ApplicationUser>> RegisterUser(RegisterUserDto registerUserDTO)
         {
-            if (registerUserDTO.UserName == null)
+            var result = new Result<ApplicationUser>(isFail: false);
+            try
             {
-                registerUserDTO.UserName = registerUserDTO.Email.Split('@')[0];
+
+                if (registerUserDTO.UserName == null)
+                {
+                    registerUserDTO.UserName = registerUserDTO.Email.Split('@').FirstOrDefault();
+                }
+                IdentityResult registerResult = await userManager.CreateAsync(mapper.Map<ApplicationUser>(registerUserDTO), registerUserDTO.Password);
+                if (!registerResult.Succeeded)
+                {
+                    var strErrors = new StringBuilder();
+                    foreach (var error in registerResult.Errors)
+                    {
+                        strErrors = strErrors.AppendLine($"{error.Description}");
+                    }
+                    return result.Fail(strErrors.ToString());
+                }
+                return result.Success(message:"User Created Successfully." , await userManager.FindByNameAsync(registerUserDTO.UserName));
+
             }
-            IdentityResult result = await userManager.CreateAsync(mapper.Map<ApplicationUser>(registerUserDTO), registerUserDTO.Password);
-            if (!result.Succeeded)
-                return null;
-            return await userManager.FindByNameAsync(registerUserDTO.UserName);
+            catch (Exception ex)
+            {
+                return result.Fail(ex.Message);
+            }
+            
         }
 
 
@@ -76,15 +94,14 @@ namespace TechnicalTask.BusinessLogic.Services
 
             try
             {
-                ApplicationUser user = await RegisterUser(registerCustomerDTO);
-                if (user == null)
-                    return result.Fail("Error In Register User");
+                var registerUserResult = await RegisterUser(registerCustomerDTO);
+                if (registerUserResult.IsFail)
+                    return result.Fail(registerUserResult.Message);
+                var user = registerUserResult.ReturnedObj;
                 Customer customer = mapper.Map<Customer>(registerCustomerDTO);
                 customer.Id = user.Id;
-
                 unitOfWork.CustomerRepo.Add(customer);
                 await unitOfWork.SaveChangesAsync();
-
                 return result.Success("Customer Registered Succefully");
                
             }

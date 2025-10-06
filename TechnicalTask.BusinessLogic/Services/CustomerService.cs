@@ -40,7 +40,7 @@ namespace TechnicalTask.BusinessLogic.Services
             }
         }
 
-        public Result<UpdateCustomerDto> Update(UpdateCustomerDto customerDto)
+        public async Task<Result<UpdateCustomerDto>> Update(UpdateCustomerDto customerDto)
         {
             var result = new Result<UpdateCustomerDto>(isFail: false);
             try
@@ -50,7 +50,7 @@ namespace TechnicalTask.BusinessLogic.Services
                     return result.Fail("Customer not found");
                 mapper.Map(customerDto, customer);
                 unitOfWork.CustomerRepo.Update(customer);
-                unitOfWork.SaveChangesAsync();
+                await unitOfWork.SaveChangesAsync();
                 return result.Success("Customer updated successfully", customerDto);
             }
             catch (Exception ex)

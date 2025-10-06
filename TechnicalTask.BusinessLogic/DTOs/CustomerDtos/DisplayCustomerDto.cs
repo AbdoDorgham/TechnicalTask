@@ -17,6 +17,6 @@ namespace TechnicalTask.BusinessLogic.DTOs.CustomerDtos
         public int Gender { get; set; }
         public DateTime BannedUntil { get; set; }
         public int BannedCount { get; set; }
-
+        public string UserName { get; set; }
     }
 }

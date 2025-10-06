@@ -11,7 +11,7 @@ namespace TechnicalTask.BusinessLogic.DTOs.CustomerDtos
     {
         public int Id { get; set; }
 
-        [MaxLength(20)]
+        [Required, MaxLength(20)]
         public string FirstName { get; set; }
 
         [MaxLength(20)]

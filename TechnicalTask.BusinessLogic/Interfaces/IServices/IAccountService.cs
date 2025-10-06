@@ -14,7 +14,7 @@ namespace TechnicalTask.BusinessLogic.Interfaces.IServices
     {
         public Task<Result<string>> Login(LoginUserDto loginUserDTO);
 
-        public Task<ApplicationUser> RegisterUser(RegisterUserDto registerUserDTO);
+        public Task<Result<ApplicationUser>> RegisterUser(RegisterUserDto registerUserDTO);
         public Task<Result<string>> RegisterCustomer(RegisterCustomerDto registerCustomerDTO);
 
     }

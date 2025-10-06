@@ -67,7 +67,7 @@ namespace TechnicalTask.BusinessLogic.Services
 
         }
 
-        public Result<CreateOrderDto> Add(CreateOrderDto orderDto)
+        public async Task<Result<CreateOrderDto>> Add(CreateOrderDto orderDto)
         {
             var result = new Result<CreateOrderDto>(isFail: false);
             try
@@ -76,10 +76,10 @@ namespace TechnicalTask.BusinessLogic.Services
                 if (customer is null)
                     return result.Fail("Customer not found");
                 if (customer.BannedUntil > DateTime.Now)
-                    return result.Fail($"Customer Banned From Make Any Orders until {customer.BannedUntil}");
+                    return result.Fail($"Sorry {customer.UserName} , You`re Banned From Make Any Orders until {customer.BannedUntil}");
                 var order = mapper.Map<Order>(orderDto);
                 unitOfWork.OrderRepo.Add(order);
-                unitOfWork.SaveChangesAsync();
+                await unitOfWork.SaveChangesAsync();
                 var newOrderDto = mapper.Map<CreateOrderDto>(order);
                 return result.Success("Order added successfully", newOrderDto);
             }
@@ -130,8 +130,8 @@ namespace TechnicalTask.BusinessLogic.Services
                     customer.BannedCount++;
                     var customerForUpdate = mapper.Map<UpdateCustomerDto>(customer);
                     customerForUpdate.Id = customerId;
-                    customerForUpdate = customerService.Update(customerForUpdate).ReturnedObj;
-                    if (customer is null)
+                    customerForUpdate = (await customerService.Update(customerForUpdate)).ReturnedObj;
+                    if (customerForUpdate is null)
                         return result.Fail("Error In Update Customer");
                 }
                 return result.Success("Order deleted successfully");
